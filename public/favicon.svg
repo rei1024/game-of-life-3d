@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+ <!-- 背景を黒にし、角に丸みを追加 -->
+  <rect width="100" height="100" rx="20" ry="20" fill="black"/>
+  <!-- ライフゲームのセルを表す白い立方体 -->
+  <rect x="20" y="20" width="20" height="20" fill="white" stroke="gray" stroke-width="2"/>
+  <rect x="35" y="35" width="20" height="20" fill="white" stroke="gray" stroke-width="2"/>
+  <rect x="50" y="50" width="20" height="20" fill="white" stroke="gray" stroke-width="2"/>
+  
+  <!-- ライフゲームのセルが積み重なるように斜めに配置 -->
+  <path d="M 30,20 L 40,10 L 60,30 L 50,40 Z" fill="gray" />
+  <path d="M 45,35 L 55,25 L 75,45 L 65,55 Z" fill="gray" />
+  <path d="M 60,50 L 70,40 L 90,60 L 80,70 Z" fill="gray" />
+</svg>

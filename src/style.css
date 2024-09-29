@@ -13,9 +13,65 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: black;
 }
 
 canvas {
   width: 100vw;
   height: 100vh;
+}
+
+#configButton {
+  position: fixed;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+#settingsDialog {
+  margin: 0px; /* `margin: auto;` is the default. */
+  /* transform: translate(-50%, -50%); */
+  left: 48px;
+  top: 48px;
+}
+
+dialog form {
+  margin: 12px;
+}
+
+dialog input {
+  height: 2rem;
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+
+dialog button.close {
+  cursor: pointer; /* カーソルをポインタに */
+  padding: 10px 15px; /* ボタンのパディング */
+  background-color: white; /* ボタンの背景色 */
+  color: black; /* ボタンの文字色 */
+  border: 2px solid black; /* ボーダーを黒に */
+  font-size: 16px; /* フォントサイズを設定 */
+  transition: background-color 0.3s, color 0.3s; /* トランジション */
+}
+
+/* ホバー時のスタイル */
+dialog button.close:hover {
+  background-color: black; /* ホバー時の背景色 */
+  color: white; /* ホバー時の文字色 */
+}
+
+/* アクティブ時のスタイル */
+dialog button.close:active {
+  background-color: gray; /* アクティブ時の背景色 */
+  color: white; /* アクティブ時の文字色 */
+}
+
+/* ボタンのフォーカス時のスタイル */
+dialog button.close:focus {
+  outline: none; /* デフォルトのアウトラインを消す */
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.5); /* フォーカス時のシャドウ */
 }
