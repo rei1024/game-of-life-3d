@@ -1,5 +1,5 @@
 {
-  "name": "ca-3d",
+  "name": "game-of-life-3d",
   "private": true,
   "version": "0.0.0",
   "type": "module",
