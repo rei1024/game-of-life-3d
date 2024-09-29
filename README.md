@@ -16,4 +16,4 @@ Run development server
 npm run dev
 ```
 
-<http://localhost:5173/>
+<http://localhost:5173/game-of-life-3d>
