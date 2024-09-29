@@ -1,0 +1,17 @@
+{
+  "name": "ca-3d",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3",
+    "vite": "^5.4.1",
+    "@ca-ts/algo": "npm:@jsr/ca-ts__algo@^0.2.0",
+    "babylonjs": "^7.27.0"
+  }
+}
