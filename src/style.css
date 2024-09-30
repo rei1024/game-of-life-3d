@@ -82,3 +82,7 @@ dialog button.btn:focus {
   outline: none; /* デフォルトのアウトラインを消す */
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.5); /* フォーカス時のシャドウ */
 }
+
+#rleError {
+  color: #dc2626; /* red-600 */
+}

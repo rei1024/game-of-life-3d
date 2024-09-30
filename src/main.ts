@@ -4,7 +4,7 @@ import { Engine, Vector3 } from "babylonjs";
 import { BitWorld } from "@ca-ts/algo/bit";
 import { setupArcRotateCamera } from "./camera";
 import { createTemplateCell } from "./cell";
-import { parseRLE } from "@ca-ts/rle";
+import { setRLE } from "./setRLE";
 
 const WORLD_SIZE = 32 * 2;
 let historySize = 16;
@@ -148,25 +148,16 @@ configButton.addEventListener("click", () => {
 });
 
 const readRLE = document.getElementById("readRLE") as HTMLElement;
+const rleErrorMessage = document.getElementById("rleError") as HTMLElement;
+const inputRLE = document.getElementById("inputRLE") as HTMLTextAreaElement;
 readRLE.addEventListener("click", () => {
-  const inputRLE = document.getElementById("inputRLE") as HTMLTextAreaElement;
-  const data = parseRLE(inputRLE.value);
   clearCell();
-
-  const centerX =
-    Math.floor(bitWorld.getWidth() / 2) -
-    Math.floor((data.size?.width ?? 0) / 2);
-  const centerY =
-    Math.floor(bitWorld.getHeight() / 2) -
-    Math.floor((data.size?.height ?? 0) / 2);
-  for (const {
-    position: { x, y },
-    state,
-  } of data.cells) {
-    if (state === 1) {
-      bitWorld.set(x + centerX, y + centerY);
-    }
+  rleErrorMessage.textContent = null;
+  try {
+    setRLE(bitWorld, inputRLE.value);
+  } catch (error) {
+    rleErrorMessage.textContent = "Invalid RLE or oversized";
+    throw error;
   }
-
   settingsDialog.close();
 });
