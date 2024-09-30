@@ -4,6 +4,7 @@ import { Engine, Vector3 } from "babylonjs";
 import { BitWorld } from "@ca-ts/algo/bit";
 import { setupArcRotateCamera } from "./camera";
 import { createTemplateCell } from "./cell";
+import { parseRLE } from "@ca-ts/rle";
 
 const WORLD_SIZE = 32 * 2;
 let historySize = 16;
@@ -97,6 +98,14 @@ window.addEventListener("resize", () => {
   engine.resize();
 });
 
+function clearCell() {
+  cellMeshes.forEach((a) => {
+    a.forEach((c) => c.dispose());
+  });
+  cellMeshes = [];
+  bitWorld.clear();
+}
+
 document.addEventListener("keydown", (e) => {
   if (e.isComposing) {
     return;
@@ -105,10 +114,7 @@ document.addEventListener("keydown", (e) => {
     running = !running;
   }
   if (e.key === "r") {
-    cellMeshes.forEach((a) => {
-      a.forEach((c) => c.dispose());
-    });
-    cellMeshes = [];
+    clearCell();
     bitWorld.random();
   }
 });
@@ -139,4 +145,28 @@ configButton.addEventListener("click", () => {
   if (!settingsDialog.open) {
     settingsDialog.showModal();
   }
+});
+
+const readRLE = document.getElementById("readRLE") as HTMLElement;
+readRLE.addEventListener("click", () => {
+  const inputRLE = document.getElementById("inputRLE") as HTMLTextAreaElement;
+  const data = parseRLE(inputRLE.value);
+  clearCell();
+
+  const centerX =
+    Math.floor(bitWorld.getWidth() / 2) -
+    Math.floor((data.size?.width ?? 0) / 2);
+  const centerY =
+    Math.floor(bitWorld.getHeight() / 2) -
+    Math.floor((data.size?.height ?? 0) / 2);
+  for (const {
+    position: { x, y },
+    state,
+  } of data.cells) {
+    if (state === 1) {
+      bitWorld.set(x + centerX, y + centerY);
+    }
+  }
+
+  settingsDialog.close();
 });

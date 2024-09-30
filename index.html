@@ -10,24 +10,44 @@
     <canvas id="renderCanvas"></canvas>
     <dialog id="settingsDialog">
       <form method="dialog">
-        <h2>Usage</h2>
-        <p>Press <kbd>Enter</kbd> to toggle start/stop</p>
-        <p>Press <kbd>R</kbd> to randomly fill</p>
-        <h2>Settings</h2>
-        <label for="historySize">History size (number of generations):</label>
-        <input id="historySize" type="number" value="" min="1" max="500" />
-        <menu>
-          <button type="button" class="close" id="closeSettings">Close</button>
-        </menu>
-        <p>
-          <a
-            href="https://github.com/rei1024/game-of-life-3d"
-            target="_blank"
-            rel="noopener"
-            >Source</a
+        <section>
+          <h2>Usage</h2>
+          <p>Press <kbd>Enter</kbd> to toggle start/stop</p>
+          <p>Press <kbd>R</kbd> to randomly fill</p>
+        </section>
+        <section>
+          <h2>Settings</h2>
+          <label for="historySize">History size (number of generations):</label>
+          <input id="historySize" type="number" value="" min="1" max="500" />
+        </section>
+        <section>
+          <h2>Input</h2>
+          <label for="inputRLE"
+            >Input
+            <a
+              href="https://conwaylife.com/wiki/Run_Length_Encoded"
+              target="_blank"
+              rel="noopener"
+              >RLE</a
+            ></label
           >
-        </p>
+          <br />
+          <textarea id="inputRLE" rows="5" cols="40"></textarea>
+          <br />
+          <button type="button" class="btn" id="readRLE">Read RLE</button>
+        </section>
+
+        <button type="button" class="btn" id="closeSettings">Close</button>
       </form>
+      <hr />
+      <p>
+        <a
+          href="https://github.com/rei1024/game-of-life-3d"
+          target="_blank"
+          rel="noopener"
+          >Source</a
+        >
+      </p>
     </dialog>
     <svg
       role="button"

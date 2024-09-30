@@ -32,10 +32,17 @@ canvas {
 }
 
 #settingsDialog {
+  position: relative;
   margin: 0px; /* `margin: auto;` is the default. */
   /* transform: translate(-50%, -50%); */
   left: 48px;
   top: 48px;
+}
+
+#closeSettings {
+  position: absolute;
+  right: 4px;
+  top: 4px;
 }
 
 dialog form {
@@ -48,7 +55,7 @@ dialog input {
   margin-bottom: 4px;
 }
 
-dialog button.close {
+dialog button.btn {
   cursor: pointer; /* カーソルをポインタに */
   padding: 10px 15px; /* ボタンのパディング */
   background-color: white; /* ボタンの背景色 */
@@ -59,19 +66,19 @@ dialog button.close {
 }
 
 /* ホバー時のスタイル */
-dialog button.close:hover {
+dialog button.btn:hover {
   background-color: black; /* ホバー時の背景色 */
   color: white; /* ホバー時の文字色 */
 }
 
 /* アクティブ時のスタイル */
-dialog button.close:active {
+dialog button.btn:active {
   background-color: gray; /* アクティブ時の背景色 */
   color: white; /* アクティブ時の文字色 */
 }
 
 /* ボタンのフォーカス時のスタイル */
-dialog button.close:focus {
+dialog button.btn:focus {
   outline: none; /* デフォルトのアウトラインを消す */
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.5); /* フォーカス時のシャドウ */
 }
