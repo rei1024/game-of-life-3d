@@ -44,7 +44,7 @@ let generation = 0;
 let cellMeshes: BABYLON.InstancedMesh[][] = [];
 const stackHeight = 1;
 
-const templateCell = createTemplateCell(scene);
+const { templateCell, cellMaterial } = createTemplateCell(scene);
 
 function updateWorld() {
   bitWorld.next();
@@ -60,6 +60,7 @@ function updateWorld() {
 
       // マテリアルや色はテンプレートセルと共有されるので追加設定不要
       newCells.push(instance);
+      // instance.scaling = new Vector3(0.5, 0.5, 0.5);
     }
   });
 
@@ -73,11 +74,10 @@ function updateWorld() {
     });
     cellMeshes = cellMeshes.slice(cellMeshes.length - historySize);
   }
-
   // 点光源の位置を移動させる
-  pointLight.position.y = generation * stackHeight;
+  pointLight.position.y += stackHeight;
   // カメラを移動
-  camera.target.y = generation * stackHeight;
+  camera.target.y += stackHeight;
   generation++;
 }
 
@@ -88,8 +88,10 @@ engine.runRenderLoop(() => {
   if (!running) {
     return;
   }
+  const INTERVAL = 3;
+
   i++;
-  if (i % 3 === 0) {
+  if (i % INTERVAL === 0) {
     updateWorld();
   }
 });
@@ -160,4 +162,9 @@ readRLE.addEventListener("click", () => {
     throw error;
   }
   settingsDialog.close();
+});
+
+const colorInput = document.getElementById("color") as HTMLInputElement;
+colorInput.addEventListener("input", () => {
+  cellMaterial.diffuseColor = BABYLON.Color3.FromHexString(colorInput.value);
 });

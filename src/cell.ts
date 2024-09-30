@@ -1,6 +1,6 @@
 import * as BABYLON from "babylonjs";
 
-export function createTemplateCell(scene: BABYLON.Scene): BABYLON.Mesh {
+export function createTemplateCell(scene: BABYLON.Scene) {
   // 1つのベースメッシュを作成
   const templateCell = BABYLON.MeshBuilder.CreateBox(
     "templateCell",
@@ -14,9 +14,10 @@ export function createTemplateCell(scene: BABYLON.Scene): BABYLON.Mesh {
   cellMaterial.diffuseColor = new BABYLON.Color3(1, 1, 1); // 白色
   cellMaterial.alpha = 1; // 透明度を設定
   cellMaterial.alphaMode = BABYLON.Constants.ALPHA_COMBINE;
-  cellMaterial.freeze();
+  // cellMaterial.wireframe = true; // ワイヤーフレームモードを有効に
+  // cellMaterial.freeze();
 
   templateCell.material = cellMaterial;
 
-  return templateCell;
+  return { templateCell, cellMaterial };
 }
