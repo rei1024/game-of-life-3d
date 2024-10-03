@@ -7,6 +7,11 @@ export function createTemplateCell(scene: BABYLON.Scene) {
     { size: 1 },
     scene
   );
+  // const templateCell = BABYLON.MeshBuilder.CreateSphere(
+  //   "templateCell",
+  //   { diameter: 1 },
+  //   scene
+  // );
   templateCell.isVisible = false; // マスターセル自体は非表示にする
 
   // マテリアルを作成して透明度を設定

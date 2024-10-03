@@ -5,6 +5,7 @@ import { BitGrid, BitWorld } from "@ca-ts/algo/bit";
 import { setupArcRotateCamera } from "./camera";
 import { createTemplateCell } from "./cell";
 import { setRLE } from "./setRLE";
+import { setupFullScreenButton } from "./settings";
 
 const WORLD_SIZE = 32 * 2;
 let historySize = 16;
@@ -203,23 +204,6 @@ colorInput.addEventListener("input", () => {
 });
 
 const fullScreen = document.querySelector("#full-screen") as HTMLElement;
-if (document.fullscreenEnabled) {
-  fullScreen.addEventListener("click", () => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen();
-      settingsDialog.close();
-    } else {
-      document.body.requestFullscreen();
-      settingsDialog.close();
-    }
-  });
-  document.addEventListener("fullscreenchange", () => {
-    if (document.fullscreenElement) {
-      fullScreen.textContent = "End Full Screen";
-    } else {
-      fullScreen.textContent = "Full Screen";
-    }
-  });
-} else {
-  fullScreen.remove();
-}
+setupFullScreenButton(fullScreen, () => {
+  settingsDialog.close();
+});
