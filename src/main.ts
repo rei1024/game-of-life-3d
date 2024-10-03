@@ -80,7 +80,7 @@ document.addEventListener("keydown", (e) => {
 // ダイアログ制御
 $historySizeInput.addEventListener("input", () => {
   let historySize = parseInt($historySizeInput.value, 10);
-  if (Number.isNaN(app.historySize)) {
+  if (Number.isNaN(historySize)) {
     historySize = 1;
   }
   app.historySize = Math.min(Math.max(historySize, 1), 500);
