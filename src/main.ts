@@ -191,10 +191,17 @@ colorInput.addEventListener("input", () => {
 });
 
 const fullScreen = document.querySelector("#full-screen") as HTMLElement;
-if (document.body.requestFullscreen) {
+if (document.fullscreenEnabled) {
   fullScreen.addEventListener("click", () => {
-    document.body.requestFullscreen();
-    settingsDialog.close();
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+      settingsDialog.close();
+      fullScreen.textContent = "Full Screen";
+    } else {
+      document.body.requestFullscreen();
+      settingsDialog.close();
+      fullScreen.textContent = "End Full Screen";
+    }
   });
 } else {
   fullScreen.remove();
