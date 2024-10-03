@@ -50,9 +50,19 @@ dialog form {
 }
 
 dialog input {
+  accent-color: black;
+}
+
+dialog input {
   height: 2rem;
   font-size: 1.3rem;
   margin-bottom: 4px;
+}
+
+dialog input[type="checkbox"] {
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-bottom: 0px;
 }
 
 dialog button.btn {

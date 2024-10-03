@@ -7,7 +7,7 @@ export function setupArcRotateCamera(
   const camera = new ArcRotateCamera(
     "ArcRotateCamera",
     Math.PI / 2,
-    Math.PI / 4,
+    Math.PI / 3,
     100,
     new Vector3(0, 0, 0),
     scene

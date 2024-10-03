@@ -1,7 +1,7 @@
 import "./style.css";
 import * as BABYLON from "babylonjs";
 import { Engine, Vector3 } from "babylonjs";
-import { BitWorld } from "@ca-ts/algo/bit";
+import { BitGrid, BitWorld } from "@ca-ts/algo/bit";
 import { setupArcRotateCamera } from "./camera";
 import { createTemplateCell } from "./cell";
 import { setRLE } from "./setRLE";
@@ -18,6 +18,9 @@ scene.clearColor = new BABYLON.Color4(0, 0, 0, 1);
 
 // ArcRotateCameraをBitWorldの中心に設定
 const camera = setupArcRotateCamera(scene, canvas);
+
+let prevGrid: BitGrid | null = null;
+let prevPrevGrid: BitGrid | null = null;
 
 // 基本的なライトを追加
 new BABYLON.HemisphericLight("light1", new Vector3(0, 1, 0), scene);
@@ -46,8 +49,21 @@ const stackHeight = 1;
 
 const { templateCell, cellMaterial } = createTemplateCell(scene);
 
+const autoRandom = document.querySelector("#auto-random") as HTMLInputElement;
+
 function updateWorld() {
+  prevPrevGrid = prevGrid;
+  prevGrid = bitWorld.bitGrid.clone();
   bitWorld.next();
+
+  if (
+    autoRandom.checked &&
+    prevPrevGrid &&
+    bitWorld.bitGrid.equal(prevPrevGrid)
+  ) {
+    clearCell();
+    bitWorld.random();
+  }
 
   const newCells: BABYLON.InstancedMesh[] = [];
 
@@ -80,10 +96,14 @@ function updateWorld() {
   camera.target.y += stackHeight;
   generation++;
 }
-
+const autoRotate = document.querySelector("#auto-rotate") as HTMLInputElement;
 let running = true;
 let i = 0;
+
 engine.runRenderLoop(() => {
+  if (autoRotate.checked) {
+    camera.alpha += scene.deltaTime / 4000;
+  }
   scene.render();
   if (!running) {
     return;
@@ -153,6 +173,7 @@ const readRLE = document.getElementById("readRLE") as HTMLElement;
 const rleErrorMessage = document.getElementById("rleError") as HTMLElement;
 const inputRLE = document.getElementById("inputRLE") as HTMLTextAreaElement;
 readRLE.addEventListener("click", () => {
+  autoRandom.checked = false;
   clearCell();
   rleErrorMessage.textContent = null;
   try {
@@ -168,3 +189,13 @@ const colorInput = document.getElementById("color") as HTMLInputElement;
 colorInput.addEventListener("input", () => {
   cellMaterial.diffuseColor = BABYLON.Color3.FromHexString(colorInput.value);
 });
+
+const fullScreen = document.querySelector("#full-screen") as HTMLElement;
+if (document.body.requestFullscreen) {
+  fullScreen.addEventListener("click", () => {
+    document.body.requestFullscreen();
+    settingsDialog.close();
+  });
+} else {
+  fullScreen.remove();
+}
