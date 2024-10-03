@@ -32,6 +32,13 @@ canvas {
   cursor: pointer;
 }
 
+@media (pointer: coarse) {
+  #configButton {
+    width: 36px;
+    height: 36px;
+  }
+}
+
 #settingsDialog {
   position: relative;
   margin: 0px; /* `margin: auto;` is the default. */
