@@ -3,6 +3,15 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "repository": {
+    "url": "https://github.com/rei1024/game-of-life-3d"
+  },
+  "homepage": "https://rei1024.github.io/game-of-life-3d/",
+  "keywords": [
+    "game of life",
+    "cgol"
+  ],
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "tsc && node prebuild.js && vite build",

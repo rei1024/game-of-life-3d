@@ -6,19 +6,31 @@ import { setupArcRotateCamera } from "./camera";
 import { createTemplateCell } from "./cell";
 import { setRLE } from "./setRLE";
 import { setupFullScreenButton } from "./settings";
+import {
+  $autoRandom,
+  $canvas,
+  $closeSettings,
+  $colorInput,
+  $configButton,
+  $fullScreen,
+  $historySizeInput,
+  $inputRLE,
+  $readRLE,
+  $rleErrorMessage,
+  $settingsDialog,
+} from "./bind";
 
 const WORLD_SIZE = 32 * 2;
 let historySize = 16;
 
-const canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
-const engine = new Engine(canvas, true);
+const engine = new Engine($canvas, true);
 const scene = new BABYLON.Scene(engine);
 
 // 背景色を黒に設定
 scene.clearColor = new BABYLON.Color4(0, 0, 0, 1);
 
 // ArcRotateCameraをBitWorldの中心に設定
-const camera = setupArcRotateCamera(scene, canvas);
+const camera = setupArcRotateCamera(scene, $canvas);
 
 let prevGrid: BitGrid | null = null;
 let prevPrevGrid: BitGrid | null = null;
@@ -50,15 +62,13 @@ const stackHeight = 1;
 
 const { templateCell, cellMaterial } = createTemplateCell(scene);
 
-const autoRandom = document.querySelector("#auto-random") as HTMLInputElement;
-
 function updateWorld() {
   prevPrevGrid = prevGrid;
   prevGrid = bitWorld.bitGrid.clone();
   bitWorld.next();
 
   if (
-    autoRandom.checked &&
+    $autoRandom.checked &&
     prevPrevGrid &&
     bitWorld.bitGrid.equal(prevPrevGrid)
   ) {
@@ -143,67 +153,54 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ダイアログ制御
-const settingsDialog = document.getElementById(
-  "settingsDialog"
-) as HTMLDialogElement;
-const historySizeInput = document.getElementById(
-  "historySize"
-) as HTMLInputElement;
-
-historySizeInput.addEventListener("input", () => {
-  historySize = parseInt(historySizeInput.value, 10);
+$historySizeInput.addEventListener("input", () => {
+  historySize = parseInt($historySizeInput.value, 10);
   if (Number.isNaN(historySize)) {
     historySize = 1;
   }
   historySize = Math.min(Math.max(historySize, 1), 500);
 });
-historySizeInput.value = historySize.toString();
+$historySizeInput.value = historySize.toString();
 
-document.getElementById("closeSettings")!.addEventListener("click", () => {
-  settingsDialog.close();
+$closeSettings.addEventListener("click", () => {
+  $settingsDialog.close();
 });
 
-const configButton = document.getElementById("configButton") as HTMLElement;
-configButton.addEventListener("click", () => {
-  if (!settingsDialog.open) {
-    settingsDialog.showModal();
+$configButton.addEventListener("click", () => {
+  if (!$settingsDialog.open) {
+    $settingsDialog.showModal();
   }
 });
 
-const readRLE = document.getElementById("readRLE") as HTMLButtonElement;
-const rleErrorMessage = document.getElementById("rleError") as HTMLElement;
-const inputRLE = document.getElementById("inputRLE") as HTMLTextAreaElement;
 function updateReadRLEButton() {
-  if (inputRLE.value.trim() === "") {
-    readRLE.disabled = true;
+  if ($inputRLE.value.trim() === "") {
+    $readRLE.disabled = true;
   } else {
-    readRLE.disabled = false;
+    $readRLE.disabled = false;
   }
 }
 updateReadRLEButton();
-inputRLE.addEventListener("input", () => {
+$inputRLE.addEventListener("input", () => {
   updateReadRLEButton();
 });
 
-readRLE.addEventListener("click", () => {
-  autoRandom.checked = false;
+$readRLE.addEventListener("click", () => {
+  $autoRandom.checked = false;
   clearCell();
-  rleErrorMessage.textContent = null;
+  $rleErrorMessage.textContent = null;
   try {
-    setRLE(bitWorld, inputRLE.value);
+    setRLE(bitWorld, $inputRLE.value);
   } catch (error) {
-    rleErrorMessage.textContent = "Invalid RLE or oversized";
+    $rleErrorMessage.textContent = "Invalid RLE or oversized";
     throw error;
   }
-  settingsDialog.close();
+  $settingsDialog.close();
 });
 
-const colorInput = document.getElementById("color") as HTMLInputElement;
-colorInput.addEventListener("input", () => {
-  cellMaterial.diffuseColor = BABYLON.Color3.FromHexString(colorInput.value);
+$colorInput.addEventListener("input", () => {
+  cellMaterial.diffuseColor = BABYLON.Color3.FromHexString($colorInput.value);
 });
 
-const fullScreen = document.querySelector("#full-screen") as HTMLElement;
-setupFullScreenButton(fullScreen, () => {
-  settingsDialog.close();
+setupFullScreenButton($fullScreen, () => {
+  $settingsDialog.close();
 });
