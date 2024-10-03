@@ -169,9 +169,21 @@ configButton.addEventListener("click", () => {
   }
 });
 
-const readRLE = document.getElementById("readRLE") as HTMLElement;
+const readRLE = document.getElementById("readRLE") as HTMLButtonElement;
 const rleErrorMessage = document.getElementById("rleError") as HTMLElement;
 const inputRLE = document.getElementById("inputRLE") as HTMLTextAreaElement;
+function updateReadRLEButton() {
+  if (inputRLE.value.trim() === "") {
+    readRLE.disabled = true;
+  } else {
+    readRLE.disabled = false;
+  }
+}
+updateReadRLEButton();
+inputRLE.addEventListener("input", () => {
+  updateReadRLEButton();
+});
+
 readRLE.addEventListener("click", () => {
   autoRandom.checked = false;
   clearCell();

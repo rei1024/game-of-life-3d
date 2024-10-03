@@ -93,6 +93,15 @@ dialog button.btn:focus {
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.5); /* フォーカス時のシャドウ */
 }
 
+/* disabled時のスタイル */
+dialog button.btn:disabled {
+  cursor: not-allowed; /* 無効時のカーソル */
+  background-color: lightgray; /* 無効時の背景色 */
+  color: darkgray; /* 無効時の文字色 */
+  border: 2px solid gray; /* 無効時のボーダー */
+  opacity: 0.6; /* 半透明にする */
+}
+
 #rleError {
   color: #dc2626; /* red-600 */
 }
