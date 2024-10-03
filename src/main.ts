@@ -208,11 +208,16 @@ if (document.fullscreenEnabled) {
     if (document.fullscreenElement) {
       document.exitFullscreen();
       settingsDialog.close();
-      fullScreen.textContent = "Full Screen";
     } else {
       document.body.requestFullscreen();
       settingsDialog.close();
+    }
+  });
+  document.addEventListener("fullscreenchange", () => {
+    if (document.fullscreenElement) {
       fullScreen.textContent = "End Full Screen";
+    } else {
+      fullScreen.textContent = "Full Screen";
     }
   });
 } else {
