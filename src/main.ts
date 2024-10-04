@@ -16,6 +16,7 @@ import {
   $readRLE,
   $rleErrorMessage,
   $settingsDialog,
+  $worldSizeInput,
 } from "./bind";
 import { App } from "./app";
 
@@ -129,4 +130,8 @@ $colorInput.addEventListener("input", () => {
 
 setupFullScreenButton($fullScreen, () => {
   $settingsDialog.close();
+});
+
+$worldSizeInput.addEventListener("input", () => {
+  app.setSize(Number($worldSizeInput.value) * 32);
 });

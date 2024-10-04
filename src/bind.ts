@@ -15,6 +15,10 @@ export const $closeSettings = document.querySelector(
   "#closeSettings"
 ) as HTMLElement;
 
+export const $worldSizeInput = document.querySelector(
+  "#worldSize"
+) as HTMLInputElement;
+
 export const $historySizeInput = document.querySelector(
   "#historySize"
 ) as HTMLInputElement;

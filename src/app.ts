@@ -46,12 +46,15 @@ export class App {
 
   setSize(size: number) {
     this.worldSize = size;
+    this.prevGrid = null;
+    this.prevPrevGrid = null;
     this.generation = 0;
-    this.camera.target.y = 0;
     this.pointLight.position.y = 0;
     this.clearCell();
     this.bitWorld = BitWorld.make({ width: size, height: size });
     this.initCamera();
+    this.camera.target.y = 0;
+    this.camera.radius = 100; // 変化してしまうため固定
     this.random();
   }
 
