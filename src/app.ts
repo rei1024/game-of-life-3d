@@ -77,7 +77,7 @@ export class App {
         // セルのインスタンスを作成
         const instance =
           this.meshPool.pop() ??
-          this.templateMesh.createInstance(`cell_${x}_${y}`);
+          this.templateMesh.createInstance(`cell_${crypto.randomUUID()}`);
         instance.isVisible = true;
         instance.position = new BABYLON.Vector3(
           x,
