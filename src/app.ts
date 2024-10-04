@@ -4,18 +4,21 @@ import { $autoRandom } from "./bind";
 import { createTemplateCell } from "./lib/cell";
 import { setRLE } from "./lib/setRLE";
 
-const WORLD_SIZE = 32 * 2;
 const stackHeight = 1;
 
 export class App {
   private prevGrid: BitGrid | null = null;
   private prevPrevGrid: BitGrid | null = null;
-  private bitWorld = BitWorld.make({ width: WORLD_SIZE, height: WORLD_SIZE });
+  private worldSize = 32 * 2;
+  private bitWorld: BitWorld;
   private generation = 0;
   public historySize = 16;
   private templateMesh: BABYLON.Mesh;
   private cellMaterial: BABYLON.StandardMaterial;
   private cellMeshes: BABYLON.InstancedMesh[][] = [];
+
+  /** ここに入っていれば isVisible=false */
+  private meshPool: BABYLON.InstancedMesh[] = [];
 
   constructor(
     private engine: BABYLON.Engine,
@@ -23,6 +26,10 @@ export class App {
     private camera: BABYLON.ArcRotateCamera,
     private pointLight: BABYLON.PointLight
   ) {
+    this.bitWorld = BitWorld.make({
+      width: this.worldSize,
+      height: this.worldSize,
+    });
     this.bitWorld.random();
     this.initCamera();
     const { templateCell, cellMaterial } = createTemplateCell(scene);
@@ -38,6 +45,7 @@ export class App {
   }
 
   setSize(size: number) {
+    this.worldSize = size;
     this.generation = 0;
     this.camera.target.y = 0;
     this.pointLight.position.y = 0;
@@ -67,7 +75,10 @@ export class App {
     this.bitWorld.forEach((x, y, alive) => {
       if (alive === 1) {
         // セルのインスタンスを作成
-        const instance = this.templateMesh.createInstance(`cell_${x}_${y}`);
+        const instance =
+          this.meshPool.pop() ??
+          this.templateMesh.createInstance(`cell_${crypto.randomUUID()}`);
+        instance.isVisible = true;
         instance.position = new BABYLON.Vector3(
           x,
           this.generation * stackHeight,
@@ -89,7 +100,15 @@ export class App {
         this.cellMeshes.length - this.historySize
       );
       old.forEach((a) => {
-        a.forEach((c) => c.dispose());
+        a.forEach((c) => {
+          // プールに空きがあれば追加
+          if (this.meshPool.length < this.worldSize * this.worldSize) {
+            c.isVisible = false;
+            this.meshPool.push(c);
+          } else {
+            c.dispose();
+          }
+        });
       });
       this.cellMeshes = this.cellMeshes.slice(
         this.cellMeshes.length - this.historySize
@@ -103,6 +122,10 @@ export class App {
   }
 
   clearCell() {
+    this.meshPool.forEach((c) => {
+      c.dispose();
+    });
+    this.meshPool = [];
     this.cellMeshes.forEach((a) => {
       a.forEach((c) => c.dispose());
     });
