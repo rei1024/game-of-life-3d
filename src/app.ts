@@ -101,7 +101,7 @@ export class App {
       );
       old.forEach((a) => {
         a.forEach((c) => {
-          if (this.meshPool.length <= this.worldSize * this.worldSize) {
+          if (this.meshPool.length < this.worldSize * this.worldSize) {
             c.isVisible = false;
             this.meshPool.push(c);
           } else {
