@@ -101,6 +101,7 @@ export class App {
       );
       old.forEach((a) => {
         a.forEach((c) => {
+          // プールに空きがあれば追加
           if (this.meshPool.length < this.worldSize * this.worldSize) {
             c.isVisible = false;
             this.meshPool.push(c);
