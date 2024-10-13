@@ -3,6 +3,7 @@ import { BitGrid, BitWorld } from "@ca-ts/algo/bit";
 import { $autoRandom } from "./bind";
 import { createTemplateCell } from "./lib/cell";
 import { setRLE } from "./lib/setRLE";
+import { randomId } from "./lib/randomId";
 
 const stackHeight = 1;
 
@@ -80,7 +81,7 @@ export class App {
         // セルのインスタンスを作成
         const instance =
           this.meshPool.pop() ??
-          this.templateMesh.createInstance(`cell_${crypto.randomUUID()}`);
+          this.templateMesh.createInstance(`cell_${randomId()}`);
         instance.isVisible = true;
         instance.position = new BABYLON.Vector3(
           x,
