@@ -1,8 +1,15 @@
 import type { BitWorld } from "@ca-ts/algo/bit";
 import { parseRLE } from "@ca-ts/rle";
+import { parseRule } from "@ca-ts/rule";
 
 export function setRLE(bitWorld: BitWorld, sourceRLE: string) {
   const data = parseRLE(sourceRLE);
+
+  try {
+    bitWorld.setRule(parseRule(data.ruleString).transition);
+  } catch {
+    bitWorld.setRule({ birth: [3], survive: [2, 3] });
+  }
 
   const width = data.size?.width ?? 0;
   const height = data.size?.height ?? 0;

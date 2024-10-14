@@ -53,6 +53,10 @@ canvas {
   top: 4px;
 }
 
+h2 {
+  margin-top: 8px;
+}
+
 dialog form {
   margin: 12px;
 }
