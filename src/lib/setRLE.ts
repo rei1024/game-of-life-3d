@@ -6,7 +6,12 @@ export function setRLE(bitWorld: BitWorld, sourceRLE: string) {
   const data = parseRLE(sourceRLE);
 
   try {
-    bitWorld.setRule(parseRule(data.ruleString).transition);
+    const rule = parseRule(data.ruleString);
+    if (rule.type === "outer-totalistic") {
+      bitWorld.setRule(rule.transition);
+    } else {
+      throw new Error("unsupported rule");
+    }
   } catch {
     bitWorld.setRule({ birth: [3], survive: [2, 3] });
   }
