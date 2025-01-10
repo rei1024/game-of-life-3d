@@ -1,6 +1,9 @@
 # https://docs.github.com/ja/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages
 name: Check
 
+permissions:
+  contents: read
+
 on:
   pull_request:
 
