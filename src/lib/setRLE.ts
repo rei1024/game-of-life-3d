@@ -8,6 +8,10 @@ export function setRLE(bitWorld: BitWorld, sourceRLE: string) {
   try {
     const rule = parseRule(data.ruleString);
     if (rule.type === "outer-totalistic") {
+      console.log(rule);
+      if (rule.generations != undefined) {
+        throw new Error("Generations is unsupported");
+      }
       bitWorld.setRule(rule.transition);
     } else {
       throw new Error("unsupported rule");

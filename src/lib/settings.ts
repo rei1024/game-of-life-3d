@@ -1,13 +1,13 @@
 export function setupFullScreenButton(
-  fullScreen: HTMLElement,
+  fullScreenToggleButton: HTMLElement,
   onClick: () => void = () => {}
 ) {
   if (!document.fullscreenEnabled) {
-    fullScreen.remove();
+    fullScreenToggleButton.remove();
     return;
   }
 
-  fullScreen.addEventListener("click", () => {
+  fullScreenToggleButton.addEventListener("click", () => {
     if (document.fullscreenElement) {
       document.exitFullscreen();
     } else {
@@ -17,9 +17,9 @@ export function setupFullScreenButton(
   });
   document.addEventListener("fullscreenchange", () => {
     if (document.fullscreenElement) {
-      fullScreen.textContent = "End Full Screen";
+      fullScreenToggleButton.textContent = "End Full Screen";
     } else {
-      fullScreen.textContent = "Full Screen";
+      fullScreenToggleButton.textContent = "Full Screen";
     }
   });
 }
