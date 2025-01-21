@@ -24,6 +24,6 @@
     "@ca-ts/rule": "npm:@jsr/ca-ts__rule@^0.5.0",
     "babylonjs": "^7.44.0",
     "typescript": "^5.7.3",
-    "vite": "^6.0.7"
+    "vite": "^6.0.9"
   }
 }
