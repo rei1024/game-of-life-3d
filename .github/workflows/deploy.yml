@@ -17,11 +17,7 @@ jobs:
           node-version-file: "./.node-version"
       - run: npm ci
       - run: npm run build
-      #   - uses: actions/upload-artifact@v3
-      #     with:
-      #       name: math_vis
-      #       path: dist
-      - uses: actions/upload-pages-artifact@v1
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
@@ -36,5 +32,5 @@ jobs:
       pages: write
       id-token: write
     steps:
-      - uses: actions/deploy-pages@v2
+      - uses: actions/deploy-pages@v4
         id: deployment
