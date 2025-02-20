@@ -135,3 +135,24 @@ setupFullScreenButton($fullScreen, () => {
 $worldSizeInput.addEventListener("input", () => {
   app.setSize(Number($worldSizeInput.value) * 32);
 });
+
+// fade out config button when mouse is not moving
+let id: number;
+
+$configButton.style.transition = "opacity 0.3s";
+
+document.body.addEventListener("mousemove", (e) => {
+  $configButton.style.opacity = "1";
+  clearTimeout(id);
+
+  if (e.clientX < 100 && e.clientY < 100) {
+    return;
+  }
+
+  id = setTimeout(
+    () => {
+      $configButton.style.opacity = "0.3";
+    },
+    document.fullscreenElement ? 2000 : 15000
+  );
+});
