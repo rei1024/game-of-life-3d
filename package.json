@@ -15,13 +15,16 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check ."
   },
   "devDependencies": {
     "@ca-ts/algo": "npm:@jsr/ca-ts__algo@^0.6.0",
     "@ca-ts/rle": "npm:@jsr/ca-ts__rle@^0.8.0",
     "@ca-ts/rule": "npm:@jsr/ca-ts__rule@^0.6.0",
     "babylonjs": "^7.50.0",
+    "prettier": "3.5.3",
     "typescript": "^5.7.3",
     "vite": "^6.1.1"
   }

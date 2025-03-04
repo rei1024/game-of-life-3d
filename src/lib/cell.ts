@@ -5,7 +5,7 @@ export function createTemplateCell(scene: BABYLON.Scene) {
   const templateCell = BABYLON.MeshBuilder.CreateBox(
     "templateCell",
     { size: 1 },
-    scene
+    scene,
   );
   // const templateCell = BABYLON.MeshBuilder.CreateSphere(
   //   "templateCell",

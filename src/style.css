@@ -84,7 +84,9 @@ dialog button.btn {
   color: black; /* ボタンの文字色 */
   border: 2px solid black; /* ボーダーを黒に */
   font-size: 16px; /* フォントサイズを設定 */
-  transition: background-color 0.3s, color 0.3s; /* トランジション */
+  transition:
+    background-color 0.3s,
+    color 0.3s; /* トランジション */
 }
 
 /* ホバー時のスタイル */

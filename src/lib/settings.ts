@@ -1,6 +1,6 @@
 export function setupFullScreenButton(
   fullScreenToggleButton: HTMLElement,
-  onClick: () => void = () => {}
+  onClick: () => void = () => {},
 ) {
   if (!document.fullscreenEnabled) {
     fullScreenToggleButton.remove();
