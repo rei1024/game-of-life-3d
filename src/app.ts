@@ -25,7 +25,7 @@ export class App {
     private engine: BABYLON.Engine,
     private scene: BABYLON.Scene,
     private camera: BABYLON.ArcRotateCamera,
-    private pointLight: BABYLON.PointLight
+    private pointLight: BABYLON.PointLight,
   ) {
     this.bitWorld = BitWorld.make({
       width: this.worldSize,
@@ -86,7 +86,7 @@ export class App {
         instance.position = new BABYLON.Vector3(
           x,
           this.generation * stackHeight,
-          y
+          y,
         );
 
         // マテリアルや色はテンプレートセルと共有されるので追加設定不要
@@ -101,7 +101,7 @@ export class App {
     if (this.cellMeshes.length >= this.historySize) {
       const old = this.cellMeshes.slice(
         0,
-        this.cellMeshes.length - this.historySize
+        this.cellMeshes.length - this.historySize,
       );
       old.forEach((a) => {
         a.forEach((c) => {
@@ -115,7 +115,7 @@ export class App {
         });
       });
       this.cellMeshes = this.cellMeshes.slice(
-        this.cellMeshes.length - this.historySize
+        this.cellMeshes.length - this.historySize,
       );
     }
     // カメラを移動

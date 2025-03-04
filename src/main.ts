@@ -32,7 +32,7 @@ const camera = setupArcRotateCamera(scene, $canvas);
 const pointLight = new BABYLON.PointLight(
   "pointLight",
   new BABYLON.Vector3(-100, 100, 0), // ライトの初期位置
-  scene
+  scene,
 );
 pointLight.intensity = 0.3; // 光の強さ
 pointLight.diffuse = new BABYLON.Color3(0.8, 1, 1); // 光の色
@@ -153,6 +153,6 @@ document.body.addEventListener("mousemove", (e) => {
     () => {
       $configButton.style.opacity = "0.3";
     },
-    document.fullscreenElement ? 2000 : 15000
+    document.fullscreenElement ? 2000 : 15000,
   );
 });
