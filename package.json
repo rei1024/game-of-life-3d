@@ -26,6 +26,6 @@
     "babylonjs": "^7.50.0",
     "prettier": "3.5.3",
     "typescript": "^5.7.3",
-    "vite": "^6.1.1"
+    "vite": "^6.2.0"
   }
 }
