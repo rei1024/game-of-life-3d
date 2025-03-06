@@ -76,23 +76,21 @@ export class App {
     const newCells: BABYLON.InstancedMesh[] = [];
 
     // 新しい世代のセルを表示
-    this.bitWorld.forEach((x, y, alive) => {
-      if (alive === 1) {
-        // セルのインスタンスを作成
-        const instance =
-          this.meshPool.pop() ??
-          this.templateMesh.createInstance(`cell_${randomId()}`);
-        instance.isVisible = true;
-        instance.position = new BABYLON.Vector3(
-          x,
-          this.generation * stackHeight,
-          y,
-        );
+    this.bitWorld.forEachAlive((x, y) => {
+      // セルのインスタンスを作成
+      const instance =
+        this.meshPool.pop() ??
+        this.templateMesh.createInstance(`cell_${randomId()}`);
+      instance.isVisible = true;
+      instance.position = new BABYLON.Vector3(
+        x,
+        this.generation * stackHeight,
+        y,
+      );
 
-        // マテリアルや色はテンプレートセルと共有されるので追加設定不要
-        newCells.push(instance);
-        // instance.scaling = new Vector3(0.5, 0.5, 0.5);
-      }
+      // マテリアルや色はテンプレートセルと共有されるので追加設定不要
+      newCells.push(instance);
+      // instance.scaling = new Vector3(0.5, 0.5, 0.5);
     });
 
     this.cellMeshes.push(newCells);
