@@ -13,6 +13,11 @@ export function setRLE(bitWorld: BitWorld, sourceRLE: string) {
         throw new Error("Generations is unsupported");
       }
       bitWorld.setRule(rule.transition);
+    } else if (rule.type === "int") {
+      if (rule.generations != undefined) {
+        throw new Error("Generations is unsupported");
+      }
+      bitWorld.setINTRule(rule.transition);
     } else {
       throw new Error("unsupported rule");
     }
