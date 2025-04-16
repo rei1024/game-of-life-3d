@@ -12,6 +12,12 @@ export function setRLE(bitWorld: BitWorld, sourceRLE: string) {
       if (rule.generations != undefined) {
         throw new Error("Generations is unsupported");
       }
+      if (rule.neighborhood != undefined) {
+        throw new Error(
+          "Hexagonal or von Neumann neighborhood is not supported",
+        );
+      }
+      console.log(rule);
       bitWorld.setRule(rule.transition);
     } else if (rule.type === "int") {
       if (rule.generations != undefined) {
