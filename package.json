@@ -20,12 +20,12 @@
     "fmt:check": "prettier --check ."
   },
   "devDependencies": {
-    "@ca-ts/algo": "npm:@jsr/ca-ts__algo@^0.7.0",
+    "@ca-ts/algo": "npm:@jsr/ca-ts__algo@^0.8.0",
     "@ca-ts/rle": "npm:@jsr/ca-ts__rle@^0.11.2",
     "@ca-ts/rule": "npm:@jsr/ca-ts__rule@^0.11.0",
     "babylonjs": "^8.2.0",
     "prettier": "3.5.3",
     "typescript": "^5.8.3",
-    "vite": "^6.3.0"
+    "vite": "^6.3.1"
   }
 }

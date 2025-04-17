@@ -17,17 +17,22 @@ export function setRLE(bitWorld: BitWorld, sourceRLE: string) {
           "Hexagonal or von Neumann neighborhood is not supported",
         );
       }
-      console.log(rule);
       bitWorld.setRule(rule.transition);
     } else if (rule.type === "int") {
       if (rule.generations != undefined) {
         throw new Error("Generations is unsupported");
       }
       bitWorld.setINTRule(rule.transition);
+    } else if (rule.type === "map") {
+      if (rule.neighbors !== "moore") {
+        throw new Error("Hexagonal or von Neumann neighborhood is unsupported");
+      }
+      bitWorld.setMAPRule(rule.data);
     } else {
       throw new Error("unsupported rule");
     }
-  } catch {
+  } catch (e) {
+    console.error(e);
     bitWorld.setRule({ birth: [3], survive: [2, 3] });
   }
 
