@@ -44,20 +44,29 @@ const app = new App(engine, scene, camera, pointLight);
 new BABYLON.HemisphericLight("light1", new Vector3(0, 1, 0), scene);
 
 let running = true;
-let i = 0;
 
+let currentTime = 0;
+let prevTime = 0;
+let fractionStep = 0;
+const frequency = 20;
 engine.runRenderLoop(() => {
+  prevTime = currentTime;
+  currentTime += scene.deltaTime ?? 0;
   if ($autoRotate.checked) {
     camera.alpha += scene.deltaTime / 4000;
   }
+
   scene.render();
   if (!running) {
     return;
   }
-  const INTERVAL = 3;
 
-  i++;
-  if (i % INTERVAL === 0) {
+  const diff = currentTime - prevTime;
+  const prevFractionStep = fractionStep;
+  const nextFractionStep = prevFractionStep + (diff / 1000) * frequency;
+  const value = Math.floor(nextFractionStep) - Math.floor(prevFractionStep);
+  fractionStep = nextFractionStep;
+  for (let j = 0; j < value; j++) {
     app.updateWorld();
   }
 });
