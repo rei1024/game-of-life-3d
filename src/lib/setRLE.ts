@@ -14,18 +14,27 @@ export function setRLE(bitWorld: BitWorld, sourceRLE: string) {
       }
       if (rule.neighborhood != undefined) {
         throw new Error(
-          "Hexagonal or von Neumann neighborhood is not supported",
+          "Hexagonal, von Neumann or triangular neighborhood is not supported",
         );
+      }
+      if (rule.gridParameter != undefined) {
+        throw new Error("Bounded grids are not unsupported");
       }
       bitWorld.setRule(rule.transition);
     } else if (rule.type === "int") {
       if (rule.generations != undefined) {
         throw new Error("Generations is unsupported");
       }
+      if (rule.gridParameter != undefined) {
+        throw new Error("Bounded grids are not unsupported");
+      }
       bitWorld.setINTRule(rule.transition);
     } else if (rule.type === "map") {
       if (rule.neighbors !== "moore") {
         throw new Error("Hexagonal or von Neumann neighborhood is unsupported");
+      }
+      if (rule.gridParameter != undefined) {
+        throw new Error("Bounded grids are not unsupported");
       }
       bitWorld.setMAPRule(rule.data);
     } else {
