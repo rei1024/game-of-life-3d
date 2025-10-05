@@ -12,15 +12,20 @@ export function setRLE(bitWorld: BitWorld, sourceRLE: string) {
       if (rule.generations != undefined) {
         throw new Error("Generations is unsupported");
       }
-      if (rule.neighborhood != undefined) {
-        throw new Error(
-          "Hexagonal, von Neumann or triangular neighborhood is not supported",
-        );
-      }
       if (rule.gridParameter != undefined) {
         throw new Error("Bounded grids are not unsupported");
       }
-      bitWorld.setRule(rule.transition);
+      if (rule.neighborhood != undefined) {
+        if (rule.neighborhood === "von-neumann") {
+          bitWorld.setVonNeumannOTRule(rule.transition);
+        } else {
+          throw new Error(
+            "Hexagonal or triangular neighborhood is not supported",
+          );
+        }
+      } else {
+        bitWorld.setRule(rule.transition);
+      }
     } else if (rule.type === "int") {
       if (rule.generations != undefined) {
         throw new Error("Generations is unsupported");
