@@ -22,7 +22,7 @@ export class App {
   private meshPool: BABYLON.InstancedMesh[] = [];
 
   constructor(
-    private engine: BABYLON.Engine,
+    private engine: BABYLON.Engine | BABYLON.WebGPUEngine,
     private scene: BABYLON.Scene,
     private camera: BABYLON.ArcRotateCamera,
     private pointLight: BABYLON.PointLight,
