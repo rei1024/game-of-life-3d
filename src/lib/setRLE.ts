@@ -24,7 +24,7 @@ export function setRLE(bitWorld: BitWorld, sourceRLE: string) {
           );
         }
       } else {
-        bitWorld.setRule(rule.transition);
+        bitWorld.setOuterTotalisticRule(rule.transition);
       }
     } else if (rule.type === "int") {
       if (rule.generations != undefined) {
@@ -47,7 +47,7 @@ export function setRLE(bitWorld: BitWorld, sourceRLE: string) {
     }
   } catch (e) {
     console.error(e);
-    bitWorld.setRule({ birth: [3], survive: [2, 3] });
+    bitWorld.setOuterTotalisticRule({ birth: [3], survive: [2, 3] });
   }
 
   const width = data.size?.width ?? 0;
